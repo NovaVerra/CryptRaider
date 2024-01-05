@@ -7,8 +7,6 @@
 #include "Components/SceneComponent.h"
 #include "Grabber.generated.h"
 
-
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CRYPTRAIDER_API UGrabber : public USceneComponent
 {
@@ -22,6 +20,16 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+	UPROPERTY(EditAnywhere)
+	float	MaxGrabDistance = 400;
+
+	UPROPERTY(EditAnywhere)
+	float	GrabRadius = 100;
+
+	UPROPERTY(EditAnywhere)
+	float	HoldDistance = 200;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -33,16 +41,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void	Release();
 
-	
-
-private:
-	UPROPERTY(EditAnywhere)
-	float	MaxGrabDistance = 400;
-
-	UPROPERTY(EditAnywhere)
-	float	GrabRadius = 100;
-
-	UPROPERTY(EditAnywhere)
-	float	HoldDistance = 200;
-
+	bool	GetGrabbableInReach(FHitResult& OutHitResult) const;
 };
